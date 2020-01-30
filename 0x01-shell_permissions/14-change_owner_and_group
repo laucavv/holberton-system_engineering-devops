@@ -1,2 +1,2 @@
 #!/bin/bash
-chgrp -R holberton 
+chgrp -R betty:holberton
