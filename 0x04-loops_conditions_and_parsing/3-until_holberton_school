@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # This script is displaying "Holberton School" 10 times with loop until
 i=20
-until [ $i -lt 10 ]
+until [ $i -lt 11 ]
 do
 	echo "Holberton School"
 	let i-=1
