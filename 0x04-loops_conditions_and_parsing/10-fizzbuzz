@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+i!/usr/bin/env bash
 #This is ascript that displays numbers from 1 to 100.
 #Displays FizzBuzz when the number is a multiple of 3 and 5
 #Displays Fizz when the number is multiple of 3
@@ -9,13 +9,17 @@ do
 	var=""
 	if [ $((i % 3)) -eq 0 ]
 	then 
-		var="Fizz"
+		var+="Fizz"
 	fi
+	
 	if [ $((i % 5)) -eq 0 ]
 	then
 		var+="Buzz"
-	else
-		var="$i"
+	fi
+
+	if [ -z "$var" ]
+	then
+		var=$i
 	fi
 	echo "$var"
 done
