@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#  Install nginx web server
+sudo apt-get update
+sudo apt-get -y install nginx
+# be listening on port 80
+sudo ufw allow "Nginx HTTP"
+sudo chmod '0777' /var/www/html/index.nginx-debian.html
+echo "Holberton School" > /var/www/html/index.nginx-debian.html
+# change line
+sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.youtube.com/watch?v=wDjeBNv6ip0 permanent;' /etc/nginx/sites-available/default
+# Start Nginx
+sudo service nginx restart
