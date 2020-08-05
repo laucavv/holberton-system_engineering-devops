@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#  Install nginx web server
+sudo apt-get update
+sudo apt-get -y install nginx
+# be listening on port 80
+sudo ufw allow "Nginx HTTP"
+echo "Holberton School" > /var/www/html/index.html
+# Start Nginx
+sudo systemctl start nginx
