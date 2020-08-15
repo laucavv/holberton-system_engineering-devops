@@ -9,7 +9,7 @@ package {'nginx':
   require => Exec['update'],
 }
 
-file_line {'custom_http_response-header':
+file_line {'response_header':
   ensure  => present,
   path    => '/etc/nginx/sites-available/default',
   after   => 'listen 80 default_server;',
