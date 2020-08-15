@@ -1,35 +1,23 @@
 # Add a custom HTTP header with Puppet
 exec {'update':
-  command => '/usr/bin/ sudo apt-get -y update',
+  command  => 'sudo apt-get update',
+  provider => shell,
 }
 
 package {'nginx':
-  ensure => installed,
-  name   => 'nginx'
+  ensure  => installed,
+  require => Exec['update'],
 }
 
-file { '/var/www/html/index.html':
+file_line {'custom_http_response-header':
   ensure  => present,
-  path    => '/var/www/html/index.html',
-  content => 'Holberton School'
+  path    => '/etc/nginx/sites-available/default',
+  after   => 'listen 80 default_server;',
+  line    => "add_header X-Served-By ${hostname};",
+  require => Package['nginx'],
 }
 
-file_line { 'redirect':
-  ensure => present,
-  path   => '/etc/nginx/sites-available/default',
-  after  => 'listen 80 default_server;',
-  line   => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=wDjeBNv6ip0 permanent;'
-}
-
-file_line {'header':
-  ensure => present,
-  path   => '/etc/nginx/sites-available/default',
-  after  => 'listen 80 default_server;',
-  line   => 'add_header X-Served-By $HOSTNAME;'
-}
-
-service { 'service nginx':
-  ensure     => running,
-  require    => Package['nginx'],
-  hasrestart => true
+service { 'nginx':
+  ensure  => running,
+  require => File_line['header_response'],
 }
