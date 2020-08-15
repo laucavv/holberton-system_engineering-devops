@@ -19,5 +19,5 @@ file_line {'response_header':
 
 service { 'nginx':
   ensure  => running,
-  require => File_line['header_response'],
+  require => File_line['response_header'],
 }
