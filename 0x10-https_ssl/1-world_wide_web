@@ -8,13 +8,13 @@ domain_cfg()
 	register=$(echo "$result" | cut -d ' ' -f4)
 	echo "$1 $register $ip" | awk '{print "The subdomain "$1" is a "$2" record and points to "$3}'	
 }
-if [ $# -eq 1 ]
+if [ "$#" -eq 1 ]
 then 
 	domain_cfg "www" "$1"
 	domain_cfg "lb-01" "$1"
 	domain_cfg "web-01" "$1"
 	domain_cfg "web-02" "$1"
-elif [ $# -eq 2 ]
+elif [ "$#" -eq 2 ]
 then
 	domain_cfg "$2" "$1"
 fi
