@@ -15,7 +15,8 @@ then
 	domain_cfg "lb-01" "$1"
 	domain_cfg "web-01" "$1"
 	domain_cfg "web-02" "$1"
-elif [ "$#" -eq 2 ]
+fi
+if [ "$#" -eq 2 ]
 then
 	domain_cfg "$2" "$1"
 fi
