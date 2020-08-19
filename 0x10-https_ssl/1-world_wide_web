@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 #Script that will display information about subdomains.
+
 domain_cfg()
 {
 
-	result=$(dig "$1.$2" | grep -A1 'ANSWER SECTION'| tail -1 | tr '\t' ' ')
+	result=$(dig "$1.$2" | grep -A1 'ANSWER SECTION:'| tail -1 | tr '\t' ' ')
 	ip=$(echo "$result" | cut -d' ' -f5-)
 	register=$(echo "$result" | cut -d' ' -f4)
 	echo "$1 $register $ip" | awk '{ print "The subdomain "$1" is a "$2" record and points to " $3 }'	
