@@ -1,23 +1,17 @@
 #!/usr/bin/env bash
-# will display information about subdomains
-getData()
-{
-	host="$1.$2"
-		info=$(dig "$host" | grep -A1 'ANSWER SECTION:' | tail -1 | tr '\t' ' ')
-		ip=$(echo "$info" | cut -d' ' -f5-)
-		re=$(echo "$info" | cut -d' ' -f4)
-		echo "$1 $re $ip" | awk '{print "The subdomain "$1" is a "$2" record and points to "$3}'	
+# Bash script that will display information about subdomains
+# shellcheck disable=SC2086
+domain_info(){
+	dig "$1.$2" | grep -A1 'ANSWER SECTION:' | tail -1 | sed "s/.$2./ /g" | awk '{print "The subdomain " $1 " is a " $4 " record and points to " $5}'
 }
 
-if (($# == 1))
-	then
-	getData "www" "$1"
-	getData "lb-01" "$1"
-	getData "web-01" "$1"
-	getData "web-02" "$1"
-	fi
-
-if (($# == 2))
-	then
-	getData "$2" "$1"
-	fi
+if [ "$#" -eq 2 ]
+then
+domain_info "$2" "$1"
+elif [ "$#" -eq 1 ]
+then
+domain_info "www" "$1"
+domain_info "lb-01" "$1"
+domain_info "web-01" "$1"
+domain_info "web-02" "$1"
+fi
