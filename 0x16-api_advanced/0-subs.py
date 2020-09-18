@@ -3,7 +3,8 @@
     returns the number of subscriber
 """
 import requests
-from sys import argv
+
+
 def number_of_subscribers(subreddit):
     """ The fuction returns the number of subscribers """
     url_r = "https://api.reddit.com/r/{}/about".format(subreddit)
